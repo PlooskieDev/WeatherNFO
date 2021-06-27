@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherNFO</title>
+    <link rel="icon" href="Images/Other/icon.png"/>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+    <style>
+        #bodyStyle
+        {
+            background-image: url('');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .center
+        {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .flex-container
+        {
+            display: flex;
+            flex-direction: row;
+        }
+
+        @media (max-width: 992px)
+        {
+            .flex-container
+            {
+                flex-direction: column;
+            }
+        }
+
+        /* input.transparent-input
+        { 
+            border:none !important
+        }
+
+        .transparent-input
+        {
+            background-color: rgba(0, 0, 0, 0);
+            border:none;
+        }
+
+        input.transparent-input
+        {
+            background-color:rgba(0,0,0,0) !important;
+            border:none !important;
+        } */
+    </style>
+</head>
+
+<body id="bodyStyle">
+
+    <div class="container">
+
+        <!-- SEARCH BAR -->
+        <div class="input-group mb-3" style="margin-top: 10px;">
+            <input id="TownNameText" type="text" class="form-control"
+            placeholder="Enter name of the desired town" aria-label="Town" aria-describedby="button-addon2"
+            style="font-size: 30px;">
+            <button id="GetWeatherButton" class="btn btn-outline-light" type="button" style="font-size: 30px;">Search</button>
+
+            <button type="button" class="btn btn-outline-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" style="padding: 10px; font-size: 20px;">
+                <li>
+                    <input id="MetricSysRadio" class="form-check-input" type="radio" name="flexRadioDefault" checked>
+                    <label class="form-check-label" for="MetricSysRadio">
+                        Metric system
+                    </label>
+                </li>
+                <li>
+                    <input id="ImperialSysRadio" class="form-check-input" type="radio" name="flexRadioDefault">
+                        Imperial system
+                    </label>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- WEATHER INFORMATION -->
+        <div class="flex-container justify-content-center align-items-center">
+            <p id="TownNameDisplay" class="display-1" style="color: white; font-weight: bold; text-align: center; margin-right: 20px;"></p>
+            <img id="FlagDisplay" src="" width="5%" height="5%">
+        </div>
+
+        <div class="center" style="margin-bottom: 30px;">
+            <!-- <p id="TownNameDisplay" class="display-1" style="color: white; font-weight: bold; text-align: center; margin-bottom: -10px;"></p>
+            <img id="FlagDisplay" src="" class="center"> -->
+            <p id="TownCoordinatesDisplay" style="font-size: 25px; color: white; text-align: center; margin-top: -10px;"></p>
+            <button id="SetFavTownButton" type="button" class="btn btn-outline-light center">Save as favourite</button>
+        </div>
+        
+        <div style="background-color: rgba(50, 50, 50, 0.75); border-radius: 20px; padding: 5px;">
+            <div class="container flex-container justify-content-evenly">
+
+                <div style="padding: 10px; text-align: center;">
+                    <h1 class="display-6" style="color: white; font-weight: bold;">Temperature</h1>
+                    <h1 id="TemperatureDisplay" class="display-4" style="color: white; font-weight: bold;"></h1>
+                    <p id="MaxMinTempDisplay" style="font-size: 25px; color: white;"></p>
+                </div>
+
+                <div style="padding: 10px; text-align: center;">
+                    <img id="WeatherImageDisplay" src="" alt="" class="center" width="100%">
+                    <h1 id="WeatherDisplay" class="display-4" style="color: white; font-weight: bold;"></h1>
+                </div>
+
+                <div style="padding: 10px; text-align: center;">
+                    <h1 class="display-6" style="color: white; font-weight: bold;">Feels like</h1>
+                    <h1 id="FeelTempDisplay" class="display-4" style="color: white; font-weight: bold;"></h1>
+                </div>
+                
+            </div>
+        </div>
+
+        <div style="background-color: rgba(50, 50, 50, 0.75); border-radius: 20px; margin-top: 20px; padding: 5px;">
+            <div class="container flex-container justify-content-between" style="color: white;">
+                <div style="padding-top: 10px;">
+                    <h1 class="display-6" style="text-align: center;">Wind</h1>
+                    <img class="center" src="Images/WeatherIcons/wind.png" alt="" width="60%"></img>
+                    <p id="WindInfoDisplay" style="text-align: center; font-size: 25px;"></p>
+                </div>
+                
+                <div style="padding-top: 10px;">
+                    <h1 class="display-6" style="text-align: center;">Pressure</h1>
+                    <img class="center" src="Images/Other/pressure.png" alt="" width="60%">
+                    <p id="PressureDisplay" style="text-align: center; font-size: 25px; margin-top: 5px;"></p>
+                </div>
+
+                <div style="padding-top: 10px;">
+                    <h1 class="display-6" style="text-align: center;">Humidity</h1>
+                    <img class="center" src="Images/Other/drop.png" alt="" width="45%">
+                    <p id="HumidityDisplay" style="text-align: center; font-size: 25px; margin-top: 5px;"></p>
+                </div>
+
+                <div style="padding-top: 10px;">
+                    <h1 class="display-6" style="text-align: center;">Visibility</h1>
+                    <img class="center" src="Images/Other/eye.png" alt="" width="80%">
+                    <p id="VisibilityDisplay" style="text-align: center; font-size: 25px; margin-top: 5px;"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <div style="background-color: rgba(50, 50, 50, 0.75); border-radius: 20px; margin-top: 20px; padding: 5px; color: white;">
+            <h1 class="display-6" style="text-align: center;">Sunrise/sunset</h1>
+            <div class="container flex-container justify-content-evenly" style="padding-top: 10px;">
+                <div>
+                    <img src="Images/WeatherIcons/SunUp.png" alt="" width="100%">
+                    <h1 id="SunriseDisplay" class="display-6" style="font-weight: bold; text-align: center; margin-top: 5px;"></h1>
+                </div>
+                <div>
+                    <img src="Images/WeatherIcons/SunDown.png" alt="" width="100%">
+                    <h1 id="SunsetDisplay" class="display-6" style="font-weight: bold; text-align: center; margin-top: 5px;"></h1>
+                </div>
+            </div>
+        </div>
+
+        <div style="color: white; text-align: center; margin-top: 10px;">
+            <p id="TimeOfLastUpdate"></p>
+            <p>
+                Weather data are collected from <a href="https://openweathermap.org/" style="color: lightblue;">openweathermap.org</a><br>
+                Flags are collected from <a href="https://www.countryflags.io/" style="color: lightblue;">countryflags.io</a><br>
+                © 2021 - Michael Pluskal
+            </p>
+        </div>
+        
+    </div>
+
+    <script src="main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>

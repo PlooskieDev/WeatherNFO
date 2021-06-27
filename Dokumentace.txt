@@ -1,0 +1,33 @@
+Problemy:
+- <script src="main.js"></script> musel byt v body
+- nastavovani pozadi podle pocasi
+- u ukladani FavTown jsem musel predat do promene FavTownLS protoze by se k tomu jinak API nedostalo
+- u switche (smery vetru) stacilo dat do podminky (true)
+- sunrise a sunset
+- cas naukazoval 0 pred jednocifernymi cisly
+- vyrovnat vlajku s nadpisem
+- pri prepinani metric/imperial se stranka resetovala zpet na FavTown
+- kdyz se prepl system u oblibeneho mesta zustala StartOnLastTown na '1' kvuli "srdci" a po prepnuti na jine mesto a nastaveni oblibene
+  a refresnuti se splnily podminky pro nacteni stranky jako kdyby se menil system (tim padem se nactou data z LastTown)
+
+Credit:
+- Weather Icons by Jakob Treml
+
+To do:
+
+✓ Second panel:
+    ✓ visibility
+    ✓ wind info
+    ✓ sunrise/sunset
+
+✓ Fix the temperatues
+
+✓ Add the feel temperature
+
+✓ Put the flag beside the town name
+
+* Make visibility into km
+
+✓ Add imperial system (goddamn yankees)
+
+✓ Design an icon
