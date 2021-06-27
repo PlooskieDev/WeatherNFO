@@ -2,7 +2,6 @@ var GetWeatherButton = document.querySelector('#GetWeatherButton');
 var TownNameText = document.querySelector('#TownNameText');
 var bodyStyle = document.querySelector('#bodyStyle');
 var FavTownLS = null;
-var LastTown = null;
 var DegreesToInt = null;
 
 var dt = null;
@@ -37,8 +36,7 @@ document.body.onload = function()
             document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
             FavTownLS = data.name;
-            LastTown = data.name;
-            localStorage.setItem("LastTown", LastTown);
+            localStorage.setItem("LastTown", data.name);
 
             document.getElementById("WeatherDisplay").innerHTML = data.weather[0].main;
 
@@ -54,12 +52,21 @@ document.body.onload = function()
             sunrise = new Date(data.sys.sunrise * 1000);
             sunset = new Date(data.sys.sunset * 1000);
 
+            if (data.timezone == 0)
+            {
+            }
+            else
+            {
+                sunrise.setHours(sunrise.getHours() + (data.timezone / 3600));
+                sunset.setHours(sunset.getHours() + (data.timezone / 3600));
+            }
+
             document.getElementById("TimeOfLastUpdate").innerHTML = "Last updated: " + dt.toTimeString().split(' ')[0];
 
-            if (sunrise.getMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":0" + sunrise.getMinutes();
-            else document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes();
-            if (sunset.getMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":0" + sunset.getMinutes();
-            else document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":" + sunset.getMinutes();
+            if (sunrise.getUTCMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":0" + sunrise.getUTCMinutes();
+            else document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":" + sunrise.getUTCMinutes();
+            if (sunset.getUTCMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":0" + sunset.getUTCMinutes();
+            else document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":" + sunset.getUTCMinutes();
 
             DegreesToInt = parseInt(data.wind.deg, 10);
             switch(true)
@@ -182,7 +189,7 @@ document.body.onload = function()
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
                 FavTownLS = data.name;
-                LastTown = data.name;
+                localStorage.setItem("LastTown", data.name);
 
                 document.getElementById("WeatherDisplay").innerHTML = data.weather[0].main;
 
@@ -198,16 +205,21 @@ document.body.onload = function()
                 sunrise = new Date(data.sys.sunrise * 1000);
                 sunset = new Date(data.sys.sunset * 1000);
 
+                if (data.timezone == 0)
+                {
+                }
+                else
+                {
+                    sunrise.setHours(sunrise.getHours() + (data.timezone / 3600));
+                    sunset.setHours(sunset.getHours() + (data.timezone / 3600));
+                }
+
                 document.getElementById("TimeOfLastUpdate").innerHTML = "Last updated: " + dt.toTimeString().split(' ')[0];
 
-                if (sunrise.getMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":0" + sunrise.getMinutes();
-                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes();
-                if (sunset.getMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":0" + sunset.getMinutes();
-                else document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":" + sunset.getMinutes();
-
-                // console.log(dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
-                // console.log(sunrise.getHours() + ":" + sunrise.getMinutes() + ":" + sunrise.getSeconds());
-                // console.log(sunset.getHours() + ":" + sunset.getMinutes() + ":" + sunset.getSeconds());
+                if (sunrise.getUTCMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":0" + sunrise.getUTCMinutes();
+                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":" + sunrise.getUTCMinutes();
+                if (sunset.getUTCMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":0" + sunset.getUTCMinutes();
+                else document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":" + sunset.getUTCMinutes();
 
                 DegreesToInt = parseInt(data.wind.deg, 10);
                 switch(true)
@@ -326,7 +338,7 @@ document.body.onload = function()
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
                 FavTownLS = data.name;
-                LastTown = data.name;
+                localStorage.setItem("LastTown", data.name);
 
                 document.getElementById("WeatherDisplay").innerHTML = data.weather[0].main;
 
@@ -334,7 +346,7 @@ document.body.onload = function()
                 document.getElementById("MaxMinTempDisplay").innerHTML = "↑ " + parseFloat(data.main.temp_max).toFixed(0) + " °F" + " ↓ " + parseFloat(data.main.temp_min).toFixed(0) + " °F";
                 document.getElementById("FeelTempDisplay").innerHTML = parseFloat(data.main.feels_like).toFixed(0) + " °F";
 
-                document.getElementById("VisibilityDisplay").innerHTML = (data.visibility * 3.28) + " ft";
+                document.getElementById("VisibilityDisplay").innerHTML = parseFloat(data.visibility * 3.28).toFixed(0) + " ft";
                 document.getElementById("PressureDisplay").innerHTML = data.main.pressure + " hPa";
                 document.getElementById("HumidityDisplay").innerHTML = data.main.humidity + " %";
 
@@ -342,16 +354,21 @@ document.body.onload = function()
                 sunrise = new Date(data.sys.sunrise * 1000);
                 sunset = new Date(data.sys.sunset * 1000);
 
+                if (data.timezone == 0)
+                {
+                }
+                else
+                {
+                    sunrise.setHours(sunrise.getHours() + (data.timezone / 3600));
+                    sunset.setHours(sunset.getHours() + (data.timezone / 3600));
+                }
+
                 document.getElementById("TimeOfLastUpdate").innerHTML = "Last updated: " + dt.toTimeString().split(' ')[0];
 
-                if (sunrise.getMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":0" + sunrise.getMinutes();
-                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes();
-                if (sunset.getMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":0" + sunset.getMinutes();
-                else document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":" + sunset.getMinutes();
-
-                // console.log(dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
-                // console.log(sunrise.getHours() + ":" + sunrise.getMinutes() + ":" + sunrise.getSeconds());
-                // console.log(sunset.getHours() + ":" + sunset.getMinutes() + ":" + sunset.getSeconds());
+                if (sunrise.getUTCMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":0" + sunrise.getUTCMinutes();
+                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":" + sunrise.getUTCMinutes();
+                if (sunset.getUTCMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":0" + sunset.getUTCMinutes();
+                else document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":" + sunset.getUTCMinutes();
 
                 DegreesToInt = parseInt(data.wind.deg, 10);
                 switch(true)
@@ -472,7 +489,7 @@ document.body.onload = function()
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
                 FavTownLS = data.name;
-                LastTown = data.name;
+                localStorage.setItem("LastTown", data.name);
 
                 document.getElementById("WeatherDisplay").innerHTML = data.weather[0].main;
 
@@ -488,16 +505,21 @@ document.body.onload = function()
                 sunrise = new Date(data.sys.sunrise * 1000);
                 sunset = new Date(data.sys.sunset * 1000);
 
+                if (data.timezone == 0)
+                {
+                }
+                else
+                {
+                    sunrise.setHours(sunrise.getHours() + (data.timezone / 3600));
+                    sunset.setHours(sunset.getHours() + (data.timezone / 3600));
+                }
+
                 document.getElementById("TimeOfLastUpdate").innerHTML = "Last updated: " + dt.toTimeString().split(' ')[0];
 
-                if (sunrise.getMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":0" + sunrise.getMinutes();
-                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes();
-                if (sunset.getMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":0" + sunset.getMinutes();
-                else document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":" + sunset.getMinutes();
-
-                // console.log(dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
-                // console.log(sunrise.getHours() + ":" + sunrise.getMinutes() + ":" + sunrise.getSeconds());
-                // console.log(sunset.getHours() + ":" + sunset.getMinutes() + ":" + sunset.getSeconds());
+                if (sunrise.getUTCMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":0" + sunrise.getUTCMinutes();
+                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":" + sunrise.getUTCMinutes();
+                if (sunset.getUTCMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":0" + sunset.getUTCMinutes();
+                else document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":" + sunset.getUTCMinutes();
 
                 DegreesToInt = parseInt(data.wind.deg, 10);
                 switch(true)
@@ -616,7 +638,7 @@ document.body.onload = function()
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
                 FavTownLS = data.name;
-                LastTown = data.name;
+                localStorage.setItem("LastTown", data.name);
 
                 document.getElementById("WeatherDisplay").innerHTML = data.weather[0].main;
 
@@ -624,7 +646,7 @@ document.body.onload = function()
                 document.getElementById("MaxMinTempDisplay").innerHTML = "↑ " + parseFloat(data.main.temp_max).toFixed(0) + " °F" + " ↓ " + parseFloat(data.main.temp_min).toFixed(0) + " °F";
                 document.getElementById("FeelTempDisplay").innerHTML = parseFloat(data.main.feels_like).toFixed(0) + " °F";
 
-                document.getElementById("VisibilityDisplay").innerHTML = (data.visibility * 3.28) + " ft";
+                document.getElementById("VisibilityDisplay").innerHTML = parseFloat(data.visibility * 3.28).toFixed(0) + " ft";
                 document.getElementById("PressureDisplay").innerHTML = data.main.pressure + " hPa";
                 document.getElementById("HumidityDisplay").innerHTML = data.main.humidity + " %";
 
@@ -632,16 +654,21 @@ document.body.onload = function()
                 sunrise = new Date(data.sys.sunrise * 1000);
                 sunset = new Date(data.sys.sunset * 1000);
 
+                if (data.timezone == 0)
+                {
+                }
+                else
+                {
+                    sunrise.setHours(sunrise.getHours() + (data.timezone / 3600));
+                    sunset.setHours(sunset.getHours() + (data.timezone / 3600));
+                }
+
                 document.getElementById("TimeOfLastUpdate").innerHTML = "Last updated: " + dt.toTimeString().split(' ')[0];
 
-                if (sunrise.getMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":0" + sunrise.getMinutes();
-                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes();
-                if (sunset.getMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":0" + sunset.getMinutes();
-                else document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":" + sunset.getMinutes();
-
-                // console.log(dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds());
-                // console.log(sunrise.getHours() + ":" + sunrise.getMinutes() + ":" + sunrise.getSeconds());
-                // console.log(sunset.getHours() + ":" + sunset.getMinutes() + ":" + sunset.getSeconds());
+                if (sunrise.getUTCMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":0" + sunrise.getUTCMinutes();
+                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":" + sunrise.getUTCMinutes();
+                if (sunset.getUTCMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":0" + sunset.getUTCMinutes();
+                else document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":" + sunset.getUTCMinutes();
 
                 DegreesToInt = parseInt(data.wind.deg, 10);
                 switch(true)
@@ -752,8 +779,6 @@ SetFavTownButton.onclick = function ()
     localStorage.setItem("StartOnLastTown", 0);
 
     document.getElementById("SetFavTownButton").innerHTML = "♥";
-
-    // console.log(localStorage.getItem("FavTown"));
 }
 
 // Metric - 0, Imperial - 1
@@ -762,19 +787,15 @@ MetricSysRadio.onclick = function ()
 {
     localStorage.setItem("MetImp", 0);
 
-    localStorage.setItem("LastTown", LastTown);
     localStorage.setItem("StartOnLastTown", 1);
 
     location.reload();
-
-    // console.log(localStorage.getItem("MetImp"));
 }
 
 ImperialSysRadio.onclick = function ()
 {
     localStorage.setItem("MetImp", 1);
 
-    localStorage.setItem("LastTown", LastTown);
     localStorage.setItem("StartOnLastTown", 1);
 
     location.reload();
@@ -806,7 +827,7 @@ GetWeatherButton.onclick = function ()
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
                 FavTownLS = data.name;
-                LastTown = data.name;
+                localStorage.setItem("LastTown", data.name);
 
                 document.getElementById("WeatherDisplay").innerHTML = data.weather[0].main;
 
@@ -822,12 +843,21 @@ GetWeatherButton.onclick = function ()
                 sunrise = new Date(data.sys.sunrise * 1000);
                 sunset = new Date(data.sys.sunset * 1000);
 
+                if (data.timezone == 0)
+                {
+                }
+                else
+                {
+                    sunrise.setHours(sunrise.getHours() + (data.timezone / 3600));
+                    sunset.setHours(sunset.getHours() + (data.timezone / 3600));
+                }
+
                 document.getElementById("TimeOfLastUpdate").innerHTML = "Last updated: " + dt.toTimeString().split(' ')[0];
 
-                if (sunrise.getMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":0" + sunrise.getMinutes();
-                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes();
-                if (sunset.getMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":0" + sunset.getMinutes();
-                else document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":" + sunset.getMinutes();
+                if (sunrise.getUTCMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":0" + sunrise.getUTCMinutes();
+                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":" + sunrise.getUTCMinutes();
+                if (sunset.getUTCMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":0" + sunset.getUTCMinutes();
+                else document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":" + sunset.getUTCMinutes();
 
                 DegreesToInt = parseInt(data.wind.deg, 10);
                 switch(true)
@@ -947,7 +977,7 @@ GetWeatherButton.onclick = function ()
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
                 FavTownLS = data.name;
-                LastTown = data.name;
+                localStorage.setItem("LastTown", data.name);
 
                 document.getElementById("WeatherDisplay").innerHTML = data.weather[0].main;
 
@@ -963,12 +993,21 @@ GetWeatherButton.onclick = function ()
                 sunrise = new Date(data.sys.sunrise * 1000);
                 sunset = new Date(data.sys.sunset * 1000);
 
+                if (data.timezone == 0)
+                {
+                }
+                else
+                {
+                    sunrise.setHours(sunrise.getHours() + (data.timezone / 3600));
+                    sunset.setHours(sunset.getHours() + (data.timezone / 3600));
+                }
+
                 document.getElementById("TimeOfLastUpdate").innerHTML = "Last updated: " + dt.toTimeString().split(' ')[0];
 
-                if (sunrise.getMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":0" + sunrise.getMinutes();
-                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getHours() + ":" + sunrise.getMinutes();
-                if (sunset.getMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":0" + sunset.getMinutes();
-                else document.getElementById("SunsetDisplay").innerHTML = sunset.getHours() + ":" + sunset.getMinutes();
+                if (sunrise.getUTCMinutes() <= 9) document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":0" + sunrise.getUTCMinutes();
+                else document.getElementById("SunriseDisplay").innerHTML = sunrise.getUTCHours() + ":" + sunrise.getUTCMinutes();
+                if (sunset.getUTCMinutes() <= 9) document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":0" + sunset.getUTCMinutes();
+                else document.getElementById("SunsetDisplay").innerHTML = sunset.getUTCHours() + ":" + sunset.getUTCMinutes();
 
                 DegreesToInt = parseInt(data.wind.deg, 10);
                 switch(true)

@@ -15,7 +15,7 @@
         {
             background-image: url('');
             background-repeat: no-repeat;
-            background-attachment: fixed;
+            background-attachment: scroll;
             background-size: cover;
         }
         .center
@@ -36,24 +36,11 @@
             {
                 flex-direction: column;
             }
+            #bodyStyle
+            {
+                background-attachment: fixed;
+            }
         }
-
-        /* input.transparent-input
-        { 
-            border:none !important
-        }
-
-        .transparent-input
-        {
-            background-color: rgba(0, 0, 0, 0);
-            border:none;
-        }
-
-        input.transparent-input
-        {
-            background-color:rgba(0,0,0,0) !important;
-            border:none !important;
-        } */
     </style>
 </head>
 
@@ -80,6 +67,7 @@
                 </li>
                 <li>
                     <input id="ImperialSysRadio" class="form-check-input" type="radio" name="flexRadioDefault">
+                    <label class="form-check-label" for="ImperialSysRadio">
                         Imperial system
                     </label>
                 </li>
