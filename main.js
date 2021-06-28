@@ -31,7 +31,6 @@ document.body.onload = function()
 
             document.getElementById("FlagDisplay").src = "https://www.countryflags.io/" + data.sys.country +"/shiny/64.png";
 
-            // document.getElementById("TownNameDisplay").innerHTML = data.name + ", " + data.sys.country;
             document.getElementById("TownNameDisplay").innerHTML = data.name;
             document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
@@ -184,7 +183,6 @@ document.body.onload = function()
 
                 document.getElementById("FlagDisplay").src = "https://www.countryflags.io/" + data.sys.country +"/shiny/64.png";
 
-                // document.getElementById("TownNameDisplay").innerHTML = data.name + ", " + data.sys.country;
                 document.getElementById("TownNameDisplay").innerHTML = data.name;
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
@@ -333,7 +331,6 @@ document.body.onload = function()
 
                 document.getElementById("FlagDisplay").src = "https://www.countryflags.io/" + data.sys.country +"/shiny/64.png";
 
-                // document.getElementById("TownNameDisplay").innerHTML = data.name + ", " + data.sys.country;
                 document.getElementById("TownNameDisplay").innerHTML = data.name;
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
@@ -484,7 +481,6 @@ document.body.onload = function()
 
                 document.getElementById("FlagDisplay").src = "https://www.countryflags.io/" + data.sys.country +"/shiny/64.png";
 
-                // document.getElementById("TownNameDisplay").innerHTML = data.name + ", " + data.sys.country;
                 document.getElementById("TownNameDisplay").innerHTML = data.name;
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
@@ -633,7 +629,6 @@ document.body.onload = function()
 
                 document.getElementById("FlagDisplay").src = "https://www.countryflags.io/" + data.sys.country +"/shiny/64.png";
 
-                // document.getElementById("TownNameDisplay").innerHTML = data.name + ", " + data.sys.country;
                 document.getElementById("TownNameDisplay").innerHTML = data.name;
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
@@ -822,7 +817,6 @@ GetWeatherButton.onclick = function ()
 
                 document.getElementById("FlagDisplay").src = "https://www.countryflags.io/" + data.sys.country +"/shiny/64.png";
 
-                // document.getElementById("TownNameDisplay").innerHTML = data.name + ", " + data.sys.country;
                 document.getElementById("TownNameDisplay").innerHTML = data.name;
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
@@ -972,7 +966,6 @@ GetWeatherButton.onclick = function ()
 
                 document.getElementById("FlagDisplay").src = "https://www.countryflags.io/" + data.sys.country +"/shiny/64.png";
 
-                // document.getElementById("TownNameDisplay").innerHTML = data.name + ", " + data.sys.country;
                 document.getElementById("TownNameDisplay").innerHTML = data.name;
                 document.getElementById("TownCoordinatesDisplay").innerHTML = data.coord.lat + " N" + ", " + data.coord.lon + " E";
 
